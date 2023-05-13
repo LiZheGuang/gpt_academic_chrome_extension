@@ -1,0 +1,8 @@
+.my-btn{
+    display: block;
+    text-align: right;
+    width: 100%;
+}
+.my-btn svg{
+  float: right;
+}
