@@ -6,10 +6,10 @@
   "action": {
     "default_popup": "hello.html"
   },
-  "permissions": ["tabs"],
+  "permissions": ["tabs","activeTab","scripting"],
   "content_scripts": [
     {
-      "matches": ["http://localhost:*/?__dark-theme=true"],
+      "matches": ["<all_urls>"],
       "js": ["jquery.js", "run.js"],
       "css": ["./css/page.css"]
     }

@@ -1,7 +1,13 @@
 (() => {
-//   console.log("挂载插件");
+  console.log("挂载插件");
   Vice();
-  clickCopy()
+  clickCopy();
+
+  chrome.runtime.onMessage.addListener(function (msg, sender, response) {
+    console.log(msg, sender);
+    console.log('我是content-script我收到的想要')
+    response();
+  });
 })();
 
 // 语音播报插件
@@ -10,9 +16,12 @@ function Vice() {
   console.log($component8);
   setTimeout(() => {
     const button = document.createElement("button");
+    button.classList.add("vice-button");
     button.innerText = "文本阅读";
-    button.style.color = "red";
-    button.style.backgroundColor = "yellow";
+    // button.style.color = "white";
+    // button.style.backgroundColor = "yellow";
+    // button.style.width = "100%";
+    // button.style.height = "50px";
 
     // 创建 SpeechSynthesis 实例
     const synth = window.speechSynthesis;
@@ -32,7 +41,7 @@ function Vice() {
       const text = $(".markdown-body").last().text();
       speak(text);
     });
-  }, 2500);
+  }, 1500);
 }
 
 // 复制文本插件

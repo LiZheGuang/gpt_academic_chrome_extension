@@ -6,3 +6,15 @@
 .my-btn svg{
   float: right;
 }
+
+.vice-button{
+  padding: 8px !important;
+  background: #f16411 !important;
+  color: white !important;
+  border-radius: 15px !important;
+  width: 100% !important;
+  /* height: 40px !important; */
+  /* line-height: 40px !important; */
+  display: block !important;
+}
+
