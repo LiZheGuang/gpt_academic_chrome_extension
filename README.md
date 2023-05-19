@@ -6,6 +6,14 @@
 
 项目地址：https://github.com/binary-husky/gpt_academic
 
+## 注意
+
+只在黑夜模式下生效
+
+```
+ http://localhost:*/?__theme=dark
+```
+
 ## 预览
 
 <img width="247" alt="image" src="https://github.com/LiZheGuang/gpt_academic_chrome_extension/assets/16920092/a5c5ecc6-f505-4f12-af7b-61c6e0b2948e">
