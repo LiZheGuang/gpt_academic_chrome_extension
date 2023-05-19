@@ -1,11 +1,60 @@
+// web页面代码注入js
 (() => {
-  console.log("挂载插件");
-  Vice();
-  clickCopy();
+  // 做一个判断
+  // content-script向插件内部脚本发送
+  // chrome.runtime.sendMessage("data", function (data) {
+  //   console.log(data)
+  //   console.log("收到响应-sendRun");
+  // });
 
+  var port = chrome.runtime.connect({ name: "cacheChannel" });
+  port.postMessage({ request: "getCache" });
+  port.onMessage.addListener(function (response) {
+    console.log("Plugin cache: " + response.response);
+    // console.log(isEmptyObject(response.response))
+
+    if (response.response == "{}") {
+      Vice();
+      clickCopy();
+    } else {
+      const onResponseDatas = JSON.parse(response.response);
+      let { copy, yuyin } = onResponseDatas.Store;
+      copy = boolVal(copy);
+      yuyin = boolVal(yuyin);
+      if (copy == false) {
+        $(document).off("mouseenter mouseleave", ".markdown-body");
+      } else {
+        clickCopy();
+      }
+      if (yuyin == false) {
+        $(".vice-button").remove();
+      } else {
+        Vice();
+      }
+    }
+
+    // console.log(onResponseDatas);
+  });
+  // Vice();
+  // clickCopy();
   chrome.runtime.onMessage.addListener(function (msg, sender, response) {
     console.log(msg, sender);
-    console.log('我是content-script我收到的想要')
+    const { checked, type } = msg;
+    if (type === "yuyin") {
+      if (checked) {
+        Vice();
+      } else {
+        $(".vice-button").remove();
+      }
+    }
+    if (type === "copy") {
+      if (checked) {
+        clickCopy();
+      } else {
+        $(document).off("mouseenter mouseleave", ".markdown-body");
+      }
+    }
+
     response();
   });
 })();
@@ -81,4 +130,12 @@ function clickCopy() {
     document.execCommand("copy"); // 执行复制操作
     $temp.remove(); // 移除textarea元素
   });
+}
+
+const boolVal = (val) => {
+  return val === "false" ? false : Boolean(val);
+};
+
+function isEmptyObject(obj) {
+  return Object.keys(obj).length === 0;
 }
