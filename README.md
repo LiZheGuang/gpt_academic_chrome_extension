@@ -22,19 +22,19 @@
 ## 预览
 
 
-<img src="./images/1.png">
+<img  width=250 src="./images/1.png">
 
-<img src="./images/2.png">
+<img  width=250 src="./images/2.png">
 
 ### 复制功能
 
-<img src="./images/3.png">
+<img width=250 src="./images/3.png">
 
 ### PDF导出功能
-<img src="./images/4.png">
+<img  width=250 src="./images/4.png">
 
 ### MD文件导出功能
-<img src="./images/5.png">
+<img width=250 src="./images/5.png">
 
 ## 如何使用与安装？
 
