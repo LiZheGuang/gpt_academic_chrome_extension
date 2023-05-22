@@ -13,7 +13,7 @@
 
 // await chrome.storage.sync.get("copy");
 // await chrome.storage.sync.get("copy");
-
+// 插件与注入content=web双向通讯
 chrome.runtime.onConnect.addListener(function (port) {
   console.log("Connected to content script");
   port.onMessage.addListener(async function (msg) {

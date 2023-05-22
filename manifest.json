@@ -13,7 +13,7 @@
   "content_scripts": [
     {
       "matches": ["http://*:*/?__theme=dark"],
-      "js": ["jquery.js", "run.js"],
+      "js": ["./modlejs/html2canvas.js","./modlejs/jspdf.umd.min.js","jquery.js", "run.js"],
       "css": ["./css/page.css"]
     }
   ]

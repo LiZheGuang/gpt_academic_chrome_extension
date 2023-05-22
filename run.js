@@ -9,6 +9,7 @@
 
   var port = chrome.runtime.connect({ name: "cacheChannel" });
   port.postMessage({ request: "getCache" });
+  // 插件与注入content=web双向通讯
   port.onMessage.addListener(function (response) {
     console.log("Plugin cache: " + response.response);
     // console.log(isEmptyObject(response.response))
@@ -53,6 +54,10 @@
       } else {
         $(document).off("mouseenter mouseleave", ".markdown-body");
       }
+    }
+    if (type === "tosavepdf") {
+      console.log("导出PDF");
+      DomToPdf();
     }
 
     response();
@@ -138,4 +143,58 @@ const boolVal = (val) => {
 
 function isEmptyObject(obj) {
   return Object.keys(obj).length === 0;
+}
+
+// 左侧MD转PDF
+function DomToPdf() {
+  const { jsPDF } = jspdf;
+  const doc = new jsPDF();
+  //使用HTML2Canvas将HTML转化为Canvas
+  html2canvas(document.querySelector("#component-5 .message-wrap"), {
+    scale: 2, //调整缩放比例例如2表示2倍大小
+    useCORS: true,
+    allowTaint: true, //允许跨域访问图片
+    logging: false,
+    backgroundColor: null,
+  }).then((canvas) => {
+    const imgData = canvas.toDataURL("image/png"); //将Canvas转化为JPG图片
+    const img = new Image();
+    img.onload = function () {
+      const pdf = new jsPDF("p", "mm", "a4"); //A4 size paper portrait
+      // save the generated PDF
+      pdf.setFillColor(55, 65, 81); // white color
+      pdf.rect(
+        0,
+        0,
+        pdf.internal.pageSize.getWidth(),
+        pdf.internal.pageSize.getHeight(),
+        "F"
+      );
+      const width = pdf.internal.pageSize.getWidth();
+      const totalHeight = (img.height * width) / img.width;
+      let heightLeft = totalHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "JPEG", 0, position, width, totalHeight);
+      heightLeft -= pdf.internal.pageSize.getHeight();
+
+      while (heightLeft >= 0) {
+        position = heightLeft - (img.height * width) / img.width;
+        pdf.addPage();
+        pdf.setFillColor(55, 65, 81); // white color
+        pdf.rect(
+          0,
+          0,
+          pdf.internal.pageSize.getWidth(),
+          pdf.internal.pageSize.getHeight(),
+          "F"
+        );
+        pdf.addImage(imgData, "JPEG", 0, position, width, totalHeight);
+        heightLeft -= pdf.internal.pageSize.getHeight();
+      }
+
+      pdf.save(`${new Date().getTime()}-GPT记录导出.pdf`);
+    };
+    img.src = imgData; //设置图片src
+  });
 }

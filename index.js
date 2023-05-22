@@ -4,6 +4,7 @@ const { boolVal } = UtilsAll();
   EmitStore();
   VoicePlayBackSwich();
   CopySwich();
+  ClickToSavePdf()
   HasStoreage();
 })();
 // Voice Playback Switching - 语音播放切换
@@ -38,6 +39,14 @@ function CopySwich() {
       Storage_Set("copy", false);
     }
   });
+}
+
+// 点击导出PDF
+function ClickToSavePdf() {
+  $('#ToSavePdf').on('click',function(){
+    SendMessage({ type: "tosavepdf" });
+
+  })
 }
 
 function ChromeExtentUtils() {
@@ -99,10 +108,9 @@ function HasStoreage() {
 }
 
 function EmitStore() {
-
   const Store = {
-    copy: Storage_Get("copy") == null ? true :  Storage_Get("copy"),
-    yuyin: Storage_Get("yuyin") == null ? true :  Storage_Get("yuyin"),
+    copy: Storage_Get("copy") == null ? true : Storage_Get("copy"),
+    yuyin: Storage_Get("yuyin") == null ? true : Storage_Get("yuyin"),
   };
 
   chrome.storage.sync.set({ Store });
