@@ -1,8 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "GPT扩展增强",
-  "description": "Base Level Extension",
+  "name": "GPT_academic扩展增强",
+  "description": "gpt_academic_chrome插件支持复制粘贴导出",
+  "author": "1030660726@qq.com",
+  "homepage_url": "https://github.com/LiZheGuang/gpt_academic_chrome_extension",
   "version": "1.0",
+  "icons": { "16": "icon.png", "48": "icon.png", "128": "icon.png" },
   "action": {
     "default_popup": "academic.html"
   },
@@ -10,10 +13,21 @@
   "background": {
     "service_worker": "background.js"
   },
+  "options_page": "options.html",
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
   "content_scripts": [
     {
       "matches": ["http://*:*/?__theme=dark"],
-      "js": ["./modlejs/html2canvas.js","./modlejs/jspdf.umd.min.js","jquery.js", "run.js"],
+      "js": [
+        "./modlejs/html2canvas.js",
+        "./modlejs/jspdf.umd.min.js",
+        "./modlejs/turndown.js",
+        "jquery.js",
+        "run.js"
+      ],
       "css": ["./css/page.css"]
     }
   ]

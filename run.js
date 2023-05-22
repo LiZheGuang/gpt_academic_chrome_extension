@@ -1,14 +1,8 @@
 // web页面代码注入js
 (() => {
-  // 做一个判断
-  // content-script向插件内部脚本发送
-  // chrome.runtime.sendMessage("data", function (data) {
-  //   console.log(data)
-  //   console.log("收到响应-sendRun");
-  // });
-
   var port = chrome.runtime.connect({ name: "cacheChannel" });
   port.postMessage({ request: "getCache" });
+  // console.log('TurndownService',TurndownService)
   // 插件与注入content=web双向通讯
   port.onMessage.addListener(function (response) {
     console.log("Plugin cache: " + response.response);
@@ -36,8 +30,6 @@
 
     // console.log(onResponseDatas);
   });
-  // Vice();
-  // clickCopy();
   chrome.runtime.onMessage.addListener(function (msg, sender, response) {
     console.log(msg, sender);
     const { checked, type } = msg;
@@ -58,6 +50,10 @@
     if (type === "tosavepdf") {
       console.log("导出PDF");
       DomToPdf();
+    }
+    if (type === "tosavemd") {
+      console.log("导出MD");
+      DomToMd();
     }
 
     response();
@@ -148,7 +144,6 @@ function isEmptyObject(obj) {
 // 左侧MD转PDF
 function DomToPdf() {
   const { jsPDF } = jspdf;
-  const doc = new jsPDF();
   //使用HTML2Canvas将HTML转化为Canvas
   html2canvas(document.querySelector("#component-5 .message-wrap"), {
     scale: 2, //调整缩放比例例如2表示2倍大小
@@ -197,4 +192,38 @@ function DomToPdf() {
     };
     img.src = imgData; //设置图片src
   });
+}
+
+// dom转md
+function DomToMd() {
+  var turndownService = new TurndownService();
+  var markdown = turndownService.turndown(
+    document.querySelector("#component-5 .message-wrap")
+  );
+  UtilsAll().blobMd(markdown);
+}
+
+function UtilsAll() {
+  return {
+    blobMd: function (markdown) {
+      // 创建一个Blob对象
+      const blob = new Blob([markdown], {
+        type: "text/plain",
+      });
+
+      // 生成下载链接
+      const url = URL.createObjectURL(blob);
+
+      // 创建一个a标签，模拟点击下载链接
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${new Date().getTime()}-GPT-MD-记录导出.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+
+      // 释放下载链接
+      URL.revokeObjectURL(url);
+    },
+  };
 }

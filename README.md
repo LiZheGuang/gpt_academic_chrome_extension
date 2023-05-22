@@ -1,8 +1,13 @@
 # gpt_academic chrome 插件 gpt 增强
 
+
+<img  src="./icon.png">
+
+
+
 从油猴插件中拆分出来，做一个独立整和的 chrome 插件
 
-该插件用于 gpt_academic 项目来使用
+该插件**必须结合** gpt_academic 项目来使用
 
 项目地址：https://github.com/binary-husky/gpt_academic
 
@@ -16,18 +21,26 @@
 
 ## 预览
 
-<img width="247" alt="image" src="https://github.com/LiZheGuang/gpt_academic_chrome_extension/assets/16920092/a5c5ecc6-f505-4f12-af7b-61c6e0b2948e">
 
-## 如何使用？
+<img src="./images/1.png">
 
-1. 项目克隆到本地
-2. chrome 插件 =》加载已解压的扩展程序
+<img src="./images/2.png">
+### 复制功能
+<img src="./images/3.png">
+### PDF导出功能
+<img src="./images/4.png">
+### MD文件导出功能
+<img src="./images/5.png">
+
+## 如何使用与安装？
+
+设置->扩展程序->打开开发者模式->加载已解压的扩展程序
+
 
 ## 包含
 
 - 语音播放
 - 内容复制
-- todo 左侧输出保存
+- 左侧输出保存 md
 - 左侧导出 pdf
 
-## 现在是 demo 版

@@ -4,7 +4,9 @@ const { boolVal } = UtilsAll();
   EmitStore();
   VoicePlayBackSwich();
   CopySwich();
-  ClickToSavePdf()
+  ClickToSavePdf();
+  ClickOptionsNext();
+  ClickToSaveMd()
   HasStoreage();
 })();
 // Voice Playback Switching - 语音播放切换
@@ -43,10 +45,25 @@ function CopySwich() {
 
 // 点击导出PDF
 function ClickToSavePdf() {
-  $('#ToSavePdf').on('click',function(){
+  $("#ToSavePdf").on("click", function () {
     SendMessage({ type: "tosavepdf" });
+  });
+}
 
-  })
+// 点击导出md文件
+
+function ClickToSaveMd(){
+  $("#ToSaveMd").on("click", function () {
+    SendMessage({ type: "tosavemd" });
+    console.log('ToSaveMd')
+  }); 
+}
+
+// 点击跳转设置页
+function ClickOptionsNext() {
+  $("#optinsNext").on("click", function () {
+    window.open(chrome.runtime.getURL("options.html"));
+  });
 }
 
 function ChromeExtentUtils() {
