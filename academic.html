@@ -17,6 +17,10 @@
         margin: 0;
         padding: 0;
       }
+      ul,li,p{
+        margin: 0; padding:0;
+        list-style: none;
+      }
       .container {
         width: 250px;
         margin: 0 auto;
@@ -28,12 +32,45 @@
       .btn {
         margin: 6px 0;
       }
+      .color-options {
+        width: 24px;
+        height: 24px;
+        border-radius: 100%;
+        display: inline-block;
+        /* background: red; */
+      }
+      .color-options:nth-child(1){
+        background-color: black;
+      }
+      .color-options:nth-child(2){
+        background-color: #121212
+      }
+      .color-options:nth-child(3){
+        background-color: #0E1A35
+      }
+      .color-options:nth-child(4){
+        background-color:#01582B
+      }
+      .color-options:nth-child(5){
+        background-color: coral;
+      }
+      .color-options:nth-child(6){
+        background-color:#A0A0A0
+      }
+      .colors{
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .colors .active{
+        box-sizing: border-box;
+        border: solid 1px black;
+      }
     </style>
   </head>
 
   <body>
     <div class="container">
-      <h6 class="title">GPT Academic 插件增强 </h6>
+      <h6 class="title">GPT Academic 插件增强</h6>
       <div class="form-check form-switch">
         <label class="form-check-label" for="flexSwitchCheckDefault"
           >复制功能</label
@@ -58,10 +95,25 @@
           checked
         />
       </div>
+      <!-- 色块选择 -->
+      <div class="colors">
+        <p>🌲 背景色选择↓↓</p>
+        <ul>
+          
+          <li class="color-options "></li>
+          <li class="color-options"></li>
+          <li class="color-options"></li>
+          <li class="color-options"></li>
+          <li class="color-options"></li>
+          <li class="color-options"></li>
+        </ul>
+      </div>
+      <!-- 色块选择 -->
 
       <button type="button" class="btn btn-primary" id="ToSavePdf">
         导出PDF
       </button>
+
       <button type="button" class="btn btn-primary" id="ToSaveMd">
         导出MD文件
       </button>

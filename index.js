@@ -6,7 +6,8 @@ const { boolVal } = UtilsAll();
   CopySwich();
   ClickToSavePdf();
   ClickOptionsNext();
-  ClickToSaveMd()
+  ClickToSaveMd();
+  Click_Bgc_options();
   HasStoreage();
 })();
 // Voice Playback Switching - 语音播放切换
@@ -51,18 +52,26 @@ function ClickToSavePdf() {
 }
 
 // 点击导出md文件
-
-function ClickToSaveMd(){
+function ClickToSaveMd() {
   $("#ToSaveMd").on("click", function () {
     SendMessage({ type: "tosavemd" });
-    console.log('ToSaveMd')
-  }); 
+    console.log("ToSaveMd");
+  });
 }
 
 // 点击跳转设置页
 function ClickOptionsNext() {
   $("#optinsNext").on("click", function () {
     window.open(chrome.runtime.getURL("options.html"));
+  });
+}
+
+// 颜色点击选择
+function Click_Bgc_options() {
+  $(".color-options").on("click", function () {
+    $(this).addClass("active").siblings().removeClass("active");
+    const BGC_COLOR = $(this).css("background-color");
+    SendMessage({ checked: { color: BGC_COLOR }, type: "SET_BGC" });
   });
 }
 
@@ -86,9 +95,7 @@ function SendMessage(data) {
       type,
     };
     EmitStore();
-    chrome.tabs.sendMessage(tabId, sendObject, function () {
-      // console.log("收到响应");
-    });
+    chrome.tabs.sendMessage(tabId, sendObject, function () {});
   });
 }
 

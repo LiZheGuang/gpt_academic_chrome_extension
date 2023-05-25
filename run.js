@@ -2,11 +2,9 @@
 (() => {
   var port = chrome.runtime.connect({ name: "cacheChannel" });
   port.postMessage({ request: "getCache" });
-  // console.log('TurndownService',TurndownService)
   // 插件与注入content=web双向通讯
   port.onMessage.addListener(function (response) {
     console.log("Plugin cache: " + response.response);
-    // console.log(isEmptyObject(response.response))
 
     if (response.response == "{}") {
       Vice();
@@ -32,7 +30,7 @@
   });
   chrome.runtime.onMessage.addListener(function (msg, sender, response) {
     console.log(msg, sender);
-    const { checked, type } = msg;
+    let { checked, type } = msg;
     if (type === "yuyin") {
       if (checked) {
         Vice();
@@ -54,6 +52,14 @@
     if (type === "tosavemd") {
       console.log("导出MD");
       DomToMd();
+    }
+    if (type === "SET_BGC") {
+      const { color } = checked
+      $('body').css('background-color',color)
+      $('.gradio-app').css('background-color',color)
+      $('.dark').css('background-color',color)
+      
+      console.log("背景色替换");
     }
 
     response();
