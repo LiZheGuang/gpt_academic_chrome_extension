@@ -145,7 +145,8 @@ function isEmptyObject(obj) {
 function DomToPdf() {
   const { jsPDF } = jspdf;
   //使用HTML2Canvas将HTML转化为Canvas
-  html2canvas(document.querySelector("#component-5 .message-wrap"), {
+  console.log(document.querySelector(".message-wrap"),'-----???')
+  html2canvas(document.querySelector(".message-wrap"), {
     scale: 2, //调整缩放比例例如2表示2倍大小
     useCORS: true,
     allowTaint: true, //允许跨域访问图片
@@ -198,7 +199,7 @@ function DomToPdf() {
 function DomToMd() {
   var turndownService = new TurndownService();
   var markdown = turndownService.turndown(
-    document.querySelector("#component-5 .message-wrap")
+    document.querySelector(".message-wrap")
   );
   UtilsAll().blobMd(markdown);
 }
